@@ -243,7 +243,7 @@
       <svg id="result-illust" width="160" height="160" viewBox="0 0 160 160" style="display:block;margin:0 auto;"></svg>
       <div class="result-title"    id="result-title"></div>
       <div class="result-subtitle" id="result-subtitle"></div>
-      <div class="score-display"><span class="score-num" id="result-score">0</span><span class="score-label">壞壞指數</span></div>
+      <div class="score-display"><span class="score-num" id="result-score">0</span><span class="score-label">惡行指數</span></div>
       <div class="score-breakdown">
         <div class="score-pill bad"  id="bad-score-pill"></div>
         <div class="score-pill good" id="good-score-pill"></div>
@@ -251,15 +251,15 @@
       <div class="stats-box">
         <div class="stats-title">職場人格戰報</div>
         <div class="stat-row">
-          <div class="stat-head"><span class="stat-label">職場危險濃度</span><span class="stat-value" id="danger-value">0%</span></div>
+          <div class="stat-head"><span class="stat-label">惡行指數</span><span class="stat-value" id="danger-value">0%</span></div>
           <div class="stat-track"><div class="stat-fill danger" id="danger-fill"></div></div>
         </div>
         <div class="stat-row">
-          <div class="stat-head"><span class="stat-label">惹事失控指數</span><span class="stat-value" id="chaos-value">0%</span></div>
+          <div class="stat-head"><span class="stat-label">善行指數</span><span class="stat-value" id="chaos-value">0%</span></div>
           <div class="stat-track"><div class="stat-fill chaos" id="chaos-fill"></div></div>
         </div>
         <div class="stat-row">
-          <div class="stat-head"><span class="stat-label">同事緣補血指數</span><span class="stat-value" id="warm-value">0%</span></div>
+          <div class="stat-head"><span class="stat-label">綜合警戒值</span><span class="stat-value" id="warm-value">0%</span></div>
           <div class="stat-track"><div class="stat-fill warm" id="warm-fill"></div></div>
         </div>
       </div>
@@ -298,7 +298,7 @@ const illusts = {
     <rect x="42" y="72" width="46" height="32" rx="15" fill="#FFB347"/>
     <rect x="76" y="14" width="48" height="24" rx="9" fill="white" stroke="#FF6B6B" stroke-width="2.5"/>
     <polygon points="80,30 74,38 86,38" fill="white" stroke="#FF6B6B" stroke-width="2.5"/>
-    <text x="82" y="29" font-size="10" fill="#FF6B6B" font-weight="bold">Elly？！</text>
+    <text x="82" y="29" font-size="10" fill="#FF6B6B" font-weight="bold">小明？！</text>
     <circle cx="118" cy="11" r="9" fill="#FF6B6B"/>
     <line x1="114" y1="7" x2="122" y2="15" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
     <line x1="122" y1="7" x2="114" y2="15" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
@@ -327,8 +327,8 @@ const illusts = {
     <rect x="42" y="71" width="46" height="32" rx="15" fill="#C3B1E1"/>
     <rect x="76" y="18" width="48" height="30" rx="9" fill="white" stroke="#FF6B6B" stroke-width="2.5"/>
     <polygon points="80,40 74,48 86,48" fill="white" stroke="#FF6B6B" stroke-width="2.5"/>
-    <text x="82" y="31" font-size="9" fill="#FF6B6B" font-weight="bold">欸欸欸</text>
-    <text x="82" y="43" font-size="9" fill="#FF6B6B" font-weight="bold">！！</text>`,
+    <text x="82" y="31" font-size="9" fill="#FF6B6B" font-weight="bold">欸你去</text>
+    <text x="82" y="43" font-size="9" fill="#FF6B6B" font-weight="bold">做啦！</text>`,
 
   lazy:`
     <circle cx="65" cy="42" r="27" fill="#FFE066"/>
@@ -365,7 +365,7 @@ const illusts = {
     <path d="M48 22 L44 10 L54 20Z" fill="#FF6B6B"/>
     <path d="M82 22 L86 10 L76 20Z" fill="#FF6B6B"/>
     <rect x="76" y="16" width="46" height="22" rx="8" fill="white" stroke="#DDD" stroke-width="2"/>
-    <text x="82" y="31" font-size="10" fill="#BBB" font-weight="bold">不好意思</text>
+    <text x="82" y="31" font-size="10" fill="#BBB" font-weight="bold">對不起...</text>
     <line x1="76" y1="14" x2="122" y2="40" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round"/>
     <text x="6" y="55" font-size="14">🤐</text>`,
 
@@ -395,7 +395,7 @@ const illusts = {
     <rect x="42" y="71" width="46" height="32" rx="15" fill="#FF8FAB"/>
     <rect x="4" y="10" width="54" height="34" rx="10" fill="white" stroke="#FFB347" stroke-width="2.5"/>
     <polygon points="25,40 16,50 36,50" fill="white" stroke="#FFB347" stroke-width="2.5"/>
-    <text x="12" y="30" font-size="18">🔞</text><text x="32" y="30" font-size="16">🥵</text>
+    <text x="12" y="30" font-size="18">🌶️</text><text x="32" y="30" font-size="16">😂</text>
     <text x="8" y="80" font-size="14">😳</text><text x="100" y="38" font-size="14">🙈</text><text x="95" y="75" font-size="14">😶</text>`,
 
   drinks:`
@@ -586,46 +586,69 @@ const SUPABASE_TABLE = 'bad_coworker_results';
 
 const results = [
   {
-    range:[-999,-12],
+    key:'angel',
     title:'辦公室小天使 😇',
-    subtitle:'不太製造麻煩，還常常默默補位',
+    subtitle:'惡行低、善行高，是會讓人想續約的安心隊友',
     banner:'linear-gradient(90deg,#6BDFB8,#FFE066,#6BDFB8)',
     illust:'angel',
-    desc:'<strong>恭喜解鎖辦公室稀有神獸。</strong><span class="result-divider">✦ ── 天 使 結 界 啟 動 ── ✦</span>平常不太製造麻煩，還常常在場面快失控時默默補位，屬於一出現就會讓人心裡冒出一句「好險有在」的類型。不是那種高調發光的人，卻很容易變成整組人的隱藏安全氣囊。<span class="result-mini">唯一的小警報：別再把自己活成辦公室許願池，該劃界線的時候還是要帥氣劃下去。</span>'
+    desc:'<strong>這種同事放在辦公室，真的會讓人默默鬆一口氣。</strong><span class="result-divider">✦ ── 天 使 結 界 啟 動 ── ✦</span>惡行指數低、善行指數高，平常不太製造麻煩，還常常在場面快失控時默默補位。屬於一出現就會讓人心裡冒出一句「好險有在」的類型，不是高調發光，卻很像整組人的隱藏安全氣囊。<span class="result-mini">唯一的小警報：別再把自己活成辦公室許願池，該劃界線的時候還是要帥氣劃下去，不然最後連別人的業障都會自動飄過來。</span>',
+    short:'善良到像誤入職場的稀有保育類。'
   },
   {
-    range:[-11,5],
+    key:'stable',
     title:'穩定無害型同事 🙂',
-    subtitle:'不一定最暖，但基本上很好共事',
+    subtitle:'惡行中低、善行中段，整體相處起來很省心',
     banner:'linear-gradient(90deg,#FFE066,#6BDFB8)',
     illust:'normal',
-    desc:'<strong>穩定、正常、好相處，這三個字其實超難得。</strong><span class="result-divider">✦ ── 無 害 模 式 常 駐 ── ✦</span>平常不太主動惹事，也不會讓同事突然眼神死。也許不是最會帶氣氛的那位，但至少共事起來不累、不煩、不需要心理建設，這已經是職場裡非常高級的舒適感。<span class="result-mini">說白一點，這類型就是大家平常不一定大聲誇，但真的很想留下來繼續當同事的那種人。</span>'
+    desc:'<strong>沒有特別浮誇，但至少是那種能讓人安心共事的存在。</strong><span class="result-divider">✦ ── 無 害 模 式 常 駐 ── ✦</span>惡行指數中低、善行指數也有基本盤，不太主動惹事，也不會讓同事突然眼神死。也許不是最會帶氣氛的那位，但至少共事起來不累、不煩、不需要心理建設，這已經是職場裡非常高級的舒適感。<span class="result-mini">說白一點，這類型就是大家平常不一定大聲誇，但真的很想留下來繼續當同事的那種人，屬於默默被珍惜的稀有安定值。</span>',
+    short:'至少不雷，已經贏過辦公室半壁江山。'
   },
   {
-    range:[6,20],
-    title:'還行還行 😏',
-    subtitle:'有點小毛邊，但還在可相處範圍',
+    key:'warm_chaos',
+    title:'又暖又雷型 🫠',
+    subtitle:'惡行偏高、善行也高，是會發糖也會丟雷的複雜人類',
+    banner:'linear-gradient(90deg,#FFB347,#6BDFB8,#FF8FAB)',
+    illust:'mild',
+    desc:'<strong>一邊發糖，一邊放火，主打一個情緒勒索式混亂。</strong><span class="result-divider">✦ ── 善 惡 並 存，像 天 使 兼 任 災 難 製 造 機 ── ✦</span>這種最煩。明明會請飲料、會幫忙、會顧情緒，偶爾還暖到讓人差點原諒一切；但下一秒又開始拖進度、亂甩鍋、講話白目，讓同事瞬間想把剛剛那杯飲料吐回去。不是純壞，但也絕對稱不上安全。<span class="result-mini">屬於那種會讓人邊罵邊捨不得封鎖的類型，說穿了就是——做人有點可愛，做事很想檢舉。</span>',
+    short:'會遞糖也會補刀，情緒起伏像雲霄飛車。'
+  },
+  {
+    key:'salvageable',
+    title:'小雷但有救型 😏',
+    subtitle:'惡行中段、善行偏低，還沒爆炸但真的需要收斂',
     banner:'linear-gradient(90deg,#FFB347,#FFE066)',
     illust:'mild',
-    desc:'<strong>屬於有點戲、但還沒有壞到需要報警的範圍。</strong><span class="result-divider">✦ ── 小 雷 花 持 續 綻 放 ── ✦</span>偶爾粗線條、偶爾讓同事心臟微微一縮，整體仍在「嗯…還行啦」的可相處區間。不是完美同事，但也還沒進化成會讓群組靜默三秒的程度。<span class="result-mini">把最常出現的那幾個小雷點收一下，整體氣場會直接從還行躍升到頗讚。</span>'
+    desc:'<strong>問題不算致命，但累積起來真的很想賞幾個白眼。</strong><span class="result-divider">✦ ── 小 毛 病 不 少，再 不 收 斂 就 要 出 事 ── ✦</span>不是什麼終極魔王，但那些細細碎碎的壞習慣已經開始讓人有感。可能是講話白目一點、拖延嚴重一點、裝沒事熟練一點，看起來都不是重罪，可全部疊起來就很欠罵。<span class="result-mini">好消息是還有救。壞消息是，再繼續靠「我又不是故意的」混下去，很快就會從小雷升格成公認麻煩人物。</span>',
+    short:'小毛病一堆，再不收斂就準備被記仇。'
   },
   {
-    range:[21,38],
-    title:'相當壞壞 😤',
-    subtitle:'有些習慣，可能已經被同事默默記上一筆',
+    key:'pure_hazard',
+    title:'純雷型 💥',
+    subtitle:'惡行高、善行低，壓力值通常比存在感先到',
     banner:'linear-gradient(90deg,#FF8FAB,#FF6B6B)',
     illust:'bad',
-    desc:'<strong>警報聲有點大，隔壁部門可能都快聽到了。</strong><span class="result-divider">✦ ── 壞 壞 指 數 明 顯 走 高 ── ✦</span>某些工作習慣或說話方式，已經不是小毛邊，而是會讓周圍的人默默記上一筆。也許不是故意，但拖進度、略過道歉、把尷尬甩出去這種操作，疊久了真的超有存在感。<span class="result-mini">先別急著喊冤，真正的答案八成都藏在下面那份高分惡行榜裡。</span>'
+    desc:'<strong>這已經不是同事，是辦公室公害。</strong><span class="result-divider">✦ ── 警 報 全 開，建 議 周 圍 同 事 自 備 耳 塞 與 血 壓 藥 ── ✦</span>惡行很滿，善行很淡，整體看起來就是一個「到底誰放進公司的」等級。講話惹人火大、做事讓人收爛攤子、出包還想閃，存在本身就像在測試同事的忍耐上限。<span class="result-mini">這種人最可怕的地方不是犯錯，而是犯完還一臉若無其事，彷彿全世界都該幫忙善後。說真的，這已經不是小壞壞，這是職場版天災。</span>',
+    short:'存在本身就是同事壓力測試。'
   },
   {
-    range:[39,999],
-    title:'好壞壞！職場危險份子 😈',
-    subtitle:'能力先不論，破壞力已經先被記住',
-    banner:'linear-gradient(90deg,#FF6B6B,#C3B1E1,#FF6B6B)',
-    illust:'devil',
-    desc:'<strong>恭喜登上職場傳說級危險名單，氣場強到同事都先冒冷汗。</strong><span class="result-divider">✦ ── 魔 王 模 式 高 調 降 臨 ── ✦</span>這已經不是普通小雷，比較像讓人需要提前做心理準備的存在。問題不一定是惡意，但某些行為模式真的很容易讓整組人一起耗能、一起頭痛、一起想把 Slack 關掉。<span class="result-mini">可怕的從來不是有缺點，而是缺點還在穩定輸出。先從前三名惡行開始下手，還有機會帥氣退回人類模式。</span>'
-  },
+    key:'lowkey',
+    title:'低調路過型同事 😶',
+    subtitle:'惡行不高、善行也不高，像安靜經過的背景角色',
+    banner:'linear-gradient(90deg,#E7EAF6,#C3B1E1)',
+    illust:'normal',
+    desc:'<strong>像背景板一樣活著，優點是也還沒鬧出什麼大事。</strong><span class="result-divider">✦ ── 存 在 感 偏 低，目 前 尚 未 構 成 威 脅 ── ✦</span>善行不算特別突出，惡行也還沒高到要報警，整體就是一種「有來上班，但靈魂不一定有登入」的狀態。不太主動救人，也不太主動害人，像個平靜路過的 NPC。<span class="result-mini">這類型安全歸安全，但也很容易被同事歸類成「喔有這個人喔」的存在。至少目前還沒有爛到上黑名單，先算過關。</span>',
+    short:'目前沒有害人，但也沒特別救過誰。'
+  }
 ];
+
+function getResultProfile(evilPct, goodPct){
+  if (evilPct >= 65 && goodPct >= 55) return results.find(r=>r.key==='warm_chaos');
+  if (evilPct >= 65 && goodPct < 55) return results.find(r=>r.key==='pure_hazard');
+  if (evilPct <= 35 && goodPct >= 60) return results.find(r=>r.key==='angel');
+  if (evilPct <= 45 && goodPct < 40) return results.find(r=>r.key==='lowkey');
+  if (evilPct <= 55 && goodPct >= 40) return results.find(r=>r.key==='stable');
+  return results.find(r=>r.key==='salvageable');
+}
 
 let currentQ=0, answers=new Array(questions.length).fill(4);
 let playerName='';
@@ -679,15 +702,15 @@ async function copyShortResult(){
   if(!lastResultPayload) return;
   const shortDesc = lastResultPayload.short_copy || '辦公室宇宙已留下這次傳說級紀錄。';
   const text = [
-    '╭・🌪️ 職場惡行檢定結果出爐 🌪️・╮',
+    '╭・🌪️ 職場人格戰報出爐 🌪️・╮',
     `│ ${lastResultPayload.name}：${lastResultPayload.result_title}`,
-    `│ 壞壞指數 ${Math.max(0,lastResultPayload.final_score)} 分`,
+    `│ 惡行指數 ${lastResultPayload.evil_pct ?? lastResultPayload.final_score}%　｜　善行指數 ${lastResultPayload.good_pct ?? 0}%`,
     '├────────────────',
     `│ ${shortDesc}`,
     '├────────────────',
     `│ 快來測：${SHARE_URL}`,
-    '╰・📎 看看自己在辦公室有多壞壞 ・╯'
-  ].join('\n');
+    '╰・📎 看看自己在辦公室是哪一型 ・╯'
+  ].join('\\n');
   try{
     await navigator.clipboard.writeText(text);
     alert('已複製結果文字！');
@@ -754,7 +777,7 @@ function nextQ(){
 async function saveResult(payload){
   saveResultToLocal(payload);
   if(!SUPABASE_URL || !SUPABASE_ANON_KEY) return {mode:'local'};
-  const { short_copy, ...dbPayload } = payload;
+  const { short_copy, evil_pct, good_pct, ...dbPayload } = payload;
   try{
     const res = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`, {
       method:'POST',
@@ -851,27 +874,26 @@ async function showResult(){
       }
     });
 
-    const score=bad-good;
-    const result=results.find(r=>score>=r.range[0]&&score<=r.range[1])||results[results.length-1];
-    const dangerPct = Math.max(0, Math.min(100, Math.round(((score + maxGood) / (maxBad + maxGood)) * 100)));
-    const chaosPct = Math.round((bad / maxBad) * 100);
-    const warmPct = Math.round((good / maxGood) * 100);
+    const evilPct = Math.round((bad / maxBad) * 100);
+    const goodPct = Math.round((good / maxGood) * 100);
+    const alertPct = Math.round((evilPct * 0.72) + ((100 - goodPct) * 0.28));
+    const result = getResultProfile(evilPct, goodPct);
 
     document.getElementById('result-title').textContent=`${playerName} 的結果：${result.title}`;
     document.getElementById('result-subtitle').textContent=result.subtitle;
-    document.getElementById('result-score').textContent=Math.max(0,score);
+    document.getElementById('result-score').textContent=evilPct;
     document.getElementById('result-banner').style.background=result.banner;
-    document.getElementById('bad-score-pill').textContent=`壞壞累積 ${bad} 分`;
-    document.getElementById('good-score-pill').textContent=`善良加回 ${good} 分`;
+    document.getElementById('bad-score-pill').textContent=`惡行累積 ${bad} 分`;
+    document.getElementById('good-score-pill').textContent=`善行累積 ${good} 分`;
     document.getElementById('result-desc').innerHTML=result.desc.replace(/\n/g,'<br>');
     document.getElementById('result-illust').innerHTML=resultIllusts[result.illust]||'';
 
-    document.getElementById('danger-value').textContent = `${dangerPct}%`;
-    document.getElementById('chaos-value').textContent = `${chaosPct}%`;
-    document.getElementById('warm-value').textContent = `${warmPct}%`;
-    document.getElementById('danger-fill').style.width = `${dangerPct}%`;
-    document.getElementById('chaos-fill').style.width = `${chaosPct}%`;
-    document.getElementById('warm-fill').style.width = `${warmPct}%`;
+    document.getElementById('danger-value').textContent = `${evilPct}%`;
+    document.getElementById('chaos-value').textContent = `${goodPct}%`;
+    document.getElementById('warm-value').textContent = `${alertPct}%`;
+    document.getElementById('danger-fill').style.width = `${evilPct}%`;
+    document.getElementById('chaos-fill').style.width = `${goodPct}%`;
+    document.getElementById('warm-fill').style.width = `${alertPct}%`;
 
     const top3 = badCrimeScores
       .filter(item => item.score > 5)
@@ -901,27 +923,19 @@ async function showResult(){
       </li>
     `).join('') : `<li class="leaderboard-empty">目前沒有超過 5 分的善行上榜，低調做人模式啟動中。</li>`;
 
-    const shortCopyMap = {
-      '辦公室小天使 😇':'辦公室氣場乾淨到像自帶聖光，根本是同事的續命補包。',
-      '穩定無害型同事 🙂':'相處起來不內耗、不驚嚇，屬於大家默默想留下來共事的舒適牌隊友。',
-      '還行還行 😏':'偶爾放出幾朵小雷花，但整體還在可愛又可救的範圍內。',
-      '相當壞壞 😤':'有些習慣真的很有存在感，同事的白眼值可能已經悄悄累積中。',
-      '好壞壞！職場危險份子 😈':'壞壞能量外溢到藏不住，辦公室宇宙已經幫這位名字加粗。'
-    };
-
     const payload = {
       name: playerName,
       answers,
       bad_score: bad,
       good_score: good,
-      final_score: score,
+      final_score: alertPct,
       result_title: result.title,
       top3_crimes: top3,
       top3_good_deeds: good3,
-      danger_pct: dangerPct,
-      chaos_pct: chaosPct,
-      warm_pct: warmPct,
-      short_copy: shortCopyMap[result.title] || '辦公室宇宙已留下這次傳說級紀錄。',
+      danger_pct: evilPct,
+      chaos_pct: goodPct,
+      warm_pct: alertPct,
+      short_copy: result.short || '辦公室宇宙已留下這次傳說級紀錄。',
       created_at: new Date().toISOString()
     };
     lastResultPayload = payload;
