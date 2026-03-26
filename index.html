@@ -37,6 +37,10 @@
   .btn-start{background:var(--navy);color:white;border:none;padding:16px 48px;border-radius:99px;font-size:1.1rem;font-weight:700;cursor:pointer;font-family:'Noto Sans TC',sans-serif;box-shadow:4px 4px 0 var(--coral);transition:transform .15s,box-shadow .15s;}
   .btn-start:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--coral);}
   .btn-start:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--coral);}
+  .intro-btn-row{justify-content:center;align-items:center;max-width:420px;margin:0 auto;}
+  .btn-rank{background:#fff7db;}
+  .btn-copy{background:white;color:var(--navy);border:3px solid var(--navy);border-radius:99px;padding:14px 24px;font-size:1rem;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;box-shadow:4px 4px 0 var(--mint);transition:transform .15s,box-shadow .15s;}
+  .btn-copy:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--mint);}
 
 
   .name-box{margin:0 auto 24px;max-width:360px;text-align:left;}
@@ -81,12 +85,13 @@
   .btn-prev:hover{background:#F5F5F5;}
   .btn-next{flex:2;background:var(--navy);color:white;border:3px solid var(--navy);border-radius:99px;padding:14px;font-size:1rem;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;box-shadow:4px 4px 0 var(--coral);transition:transform .15s,box-shadow .15s;}
   .btn-next:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--coral);}
+  .btn-next.loading,.btn-next:disabled{opacity:.78;cursor:not-allowed;transform:none;box-shadow:2px 2px 0 rgba(45,42,74,.2);}
 
   /* RESULT */
   .result-card{background:white;border-radius:32px;padding:40px 32px;border:3px solid var(--navy);box-shadow:8px 8px 0 var(--navy);width:100%;text-align:center;position:relative;overflow:hidden;}
   .result-banner{position:absolute;top:0;left:0;right:0;height:10px;}
-  .result-title{font-family:'Fredoka One',cursive;font-size:clamp(1.6rem,5vw,2.5rem);color:var(--navy);margin:16px 0 6px;line-height:1.2;}
-  .result-subtitle{font-size:.9rem;color:#888;margin-bottom:22px;}
+  .result-title{font-family:'Fredoka One',cursive;font-size:clamp(1.95rem,5.8vw,3rem);color:var(--navy);margin:16px 0 8px;line-height:1.16;}
+  .result-subtitle{font-size:1rem;color:#756f86;margin-bottom:24px;font-weight:700;}
   .score-display{display:inline-flex;align-items:baseline;gap:6px;background:var(--navy);color:white;border-radius:16px;padding:12px 28px;margin-bottom:20px;font-family:'Fredoka One',cursive;}
   .score-num{font-size:2.8rem;}
   .score-label{font-size:.9rem;opacity:.7;}
@@ -94,7 +99,10 @@
   .score-pill{padding:7px 16px;border-radius:99px;font-size:.82rem;font-weight:700;border:2px solid var(--navy);}
   .score-pill.bad{background:#FFE5E5;color:var(--coral);}
   .score-pill.good{background:#E5FFF6;color:#3DBFA0;}
-  .result-desc{background:var(--cream);border-radius:16px;padding:20px;font-size:.95rem;line-height:1.8;color:#555;margin-bottom:18px;border:2px dashed #DDD;text-align:left;}
+  .result-desc{background:linear-gradient(180deg,#fffdf8 0%,#fff6ea 100%);border-radius:20px;padding:24px 22px;font-size:1.08rem;line-height:1.95;color:var(--navy);margin-bottom:20px;border:3px dashed #FFD39A;text-align:left;font-weight:700;box-shadow:4px 4px 0 rgba(45,42,74,.08);}
+  .result-desc strong{display:block;text-align:center;font-size:clamp(1.38rem,3.8vw,1.9rem);line-height:1.45;color:var(--coral);margin:0 0 10px;font-weight:900;}
+  .result-desc .result-divider{display:block;text-align:center;letter-spacing:.12em;color:#C48A42;margin:8px 0 12px;font-weight:800;font-size:.92rem;}
+  .result-desc .result-mini{display:block;font-size:.92rem;color:#7a6f88;font-weight:800;margin-top:10px;}
   .top3-box{background:#FFF6FB;border:2px solid var(--navy);border-radius:18px;padding:18px 18px 14px;margin-bottom:22px;text-align:left;box-shadow:4px 4px 0 rgba(45,42,74,.08);}
   .top3-title{font-size:1rem;font-weight:900;color:var(--navy);margin-bottom:10px;}
   .top3-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;}
@@ -181,7 +189,30 @@
         <input class="name-input" id="player-name" type="text" maxlength="20" placeholder="輸入名字或暱稱">
         <div class="name-tip">一定要輸入名字或暱稱才可以開始測驗。</div>
       </div>
-      <button class="btn-start" onclick="startQuiz()">開始測驗！</button>
+      <div class="btn-row intro-btn-row">
+        <button class="btn-start" onclick="startQuiz()">開始測驗！</button>
+        <button class="btn-prev btn-rank" onclick="openLeaderboardFromIntro()">先看排行榜</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div class="screen" id="screen-leaderboard">
+    <div class="result-card">
+      <div class="result-banner" style="background:linear-gradient(90deg,#C3B1E1,#6BDFB8,#FFE066);"></div>
+      <div class="result-title">排行榜 👀</div>
+      <div class="result-subtitle">還沒測也可以先偷看誰最讓同事冒冷汗</div>
+      <div class="leaderboard-box" style="margin-top:8px;">
+        <div class="leaderboard-head">
+          <div class="leaderboard-title">目前排行榜</div>
+          <div class="leaderboard-note" id="intro-leaderboard-note">載入中...</div>
+        </div>
+        <ul class="leaderboard-list" id="intro-leaderboard-list"></ul>
+      </div>
+      <div class="btn-row">
+        <button class="btn-prev" onclick="backToIntro()">← 回首頁</button>
+        <button class="btn-next" onclick="startQuizFromLeaderboard()">直接開始測驗</button>
+      </div>
     </div>
   </div>
 
@@ -248,7 +279,10 @@
         </div>
         <ul class="leaderboard-list" id="leaderboard-list"></ul>
       </div>
-      <button class="btn-retry" onclick="restart()">🔄 再測一次</button>
+      <div class="btn-row">
+        <button class="btn-copy" onclick="copyShortResult()">📋 複製簡短結果</button>
+        <button class="btn-retry" onclick="restart()">🔄 再測一次</button>
+      </div>
     </div>
   </div>
 
@@ -557,7 +591,7 @@ const results = [
     subtitle:'不太製造麻煩，還常常默默補位',
     banner:'linear-gradient(90deg,#6BDFB8,#FFE066,#6BDFB8)',
     illust:'angel',
-    desc:'在辦公室裡通常屬於讓人安心的存在。未必最浮誇、最會表現，但相處起來順，出事時也常願意接住場面。\n\n比較需要注意的反而不是壞習慣，而是太容易變成那個一直收尾的人。溫柔歸溫柔，界線還是要留一下。'
+    desc:'<strong>恭喜解鎖辦公室稀有神獸。</strong><span class="result-divider">✦ ── 天 使 結 界 啟 動 ── ✦</span>平常不太製造麻煩，還常常在場面快失控時默默補位，屬於一出現就會讓人心裡冒出一句「好險有在」的類型。不是那種高調發光的人，卻很容易變成整組人的隱藏安全氣囊。<span class="result-mini">唯一的小警報：別再把自己活成辦公室許願池，該劃界線的時候還是要帥氣劃下去。</span>'
   },
   {
     range:[-11,5],
@@ -565,7 +599,7 @@ const results = [
     subtitle:'不一定最暖，但基本上很好共事',
     banner:'linear-gradient(90deg,#FFE066,#6BDFB8)',
     illust:'normal',
-    desc:'整體屬於安全牌同事。平常不太主動惹事，也不太會讓別人額外花力氣應付。也許不是辦公室裡最會照顧大家情緒的那一位，但至少相處起來不累。\n\n這類型其實很稀有，因為職場最難得的，往往就是穩定、正常、沒有奇怪驚喜。'
+    desc:'<strong>穩定、正常、好相處，這三個字其實超難得。</strong><span class="result-divider">✦ ── 無 害 模 式 常 駐 ── ✦</span>平常不太主動惹事，也不會讓同事突然眼神死。也許不是最會帶氣氛的那位，但至少共事起來不累、不煩、不需要心理建設，這已經是職場裡非常高級的舒適感。<span class="result-mini">說白一點，這類型就是大家平常不一定大聲誇，但真的很想留下來繼續當同事的那種人。</span>'
   },
   {
     range:[6,20],
@@ -573,7 +607,7 @@ const results = [
     subtitle:'有點小毛邊，但還在可相處範圍',
     banner:'linear-gradient(90deg,#FFB347,#FFE066)',
     illust:'mild',
-    desc:'不是完美同事，但也還沒到讓人想避開。偶爾會有點粗線條、偶爾會讓同事心裡小小震一下，不過大致上仍在「算了還行啦」的範圍內。\n\n只要把最常出現的幾個小雷點收斂一下，整體同事緣通常會直接升級。'
+    desc:'<strong>屬於有點戲、但還沒有壞到需要報警的範圍。</strong><span class="result-divider">✦ ── 小 雷 花 持 續 綻 放 ── ✦</span>偶爾粗線條、偶爾讓同事心臟微微一縮，整體仍在「嗯…還行啦」的可相處區間。不是完美同事，但也還沒進化成會讓群組靜默三秒的程度。<span class="result-mini">把最常出現的那幾個小雷點收一下，整體氣場會直接從還行躍升到頗讚。</span>'
   },
   {
     range:[21,38],
@@ -581,7 +615,7 @@ const results = [
     subtitle:'有些習慣，可能已經被同事默默記上一筆',
     banner:'linear-gradient(90deg,#FF8FAB,#FF6B6B)',
     illust:'bad',
-    desc:'某些工作習慣或說話方式，已經不只是小毛邊，而是會讓周圍的人開始有感。也許不是故意，但拖進度、略過道歉、把尷尬丟給別人，這些累積起來真的很有存在感。\n\n這個區間最值得做的事，是先認真看一下高分惡行清單，通常答案都藏在那裡。'
+    desc:'<strong>警報聲有點大，隔壁部門可能都快聽到了。</strong><span class="result-divider">✦ ── 壞 壞 指 數 明 顯 走 高 ── ✦</span>某些工作習慣或說話方式，已經不是小毛邊，而是會讓周圍的人默默記上一筆。也許不是故意，但拖進度、略過道歉、把尷尬甩出去這種操作，疊久了真的超有存在感。<span class="result-mini">先別急著喊冤，真正的答案八成都藏在下面那份高分惡行榜裡。</span>'
   },
   {
     range:[39,999],
@@ -589,13 +623,85 @@ const results = [
     subtitle:'能力先不論，破壞力已經先被記住',
     banner:'linear-gradient(90deg,#FF6B6B,#C3B1E1,#FF6B6B)',
     illust:'devil',
-    desc:'在職場裡已經不是普通小雷，比較像會讓別人提前做心理準備的類型。問題不一定是惡意，而是某些行為模式真的很容易造成他人負擔。\n\n可怕的從來不是有缺點，而是完全沒發現缺點正在穩定輸出。先從前三名惡行開始修，還來得及從危險份子退回人類模式。'
+    desc:'<strong>恭喜登上職場傳說級危險名單，氣場強到同事都先冒冷汗。</strong><span class="result-divider">✦ ── 魔 王 模 式 高 調 降 臨 ── ✦</span>這已經不是普通小雷，比較像讓人需要提前做心理準備的存在。問題不一定是惡意，但某些行為模式真的很容易讓整組人一起耗能、一起頭痛、一起想把 Slack 關掉。<span class="result-mini">可怕的從來不是有缺點，而是缺點還在穩定輸出。先從前三名惡行開始下手，還有機會帥氣退回人類模式。</span>'
   },
 ];
 
 let currentQ=0, answers=new Array(questions.length).fill(4);
 let playerName='';
 let lastResultPayload=null;
+let isSubmittingResult=false;
+
+const SHARE_URL = 'https://eritung.github.io/bad-coworker-quiz/';
+
+function backToIntro(){
+  showScreen('screen-intro');
+}
+
+async function openLeaderboardFromIntro(){
+  showScreen('screen-leaderboard');
+  const note=document.getElementById('intro-leaderboard-note');
+  const list=document.getElementById('intro-leaderboard-list');
+  note.textContent='載入中...';
+  list.innerHTML='<li class="leaderboard-empty">排行榜載入中，稍等一下下。</li>';
+  const leaderboard = await fetchLeaderboard();
+  renderLeaderboardTo('intro-leaderboard-note','intro-leaderboard-list', leaderboard.items, leaderboard.mode);
+}
+
+function startQuizFromLeaderboard(){
+  const input=document.getElementById('player-name');
+  showScreen('screen-intro');
+  setTimeout(()=>input?.focus(), 50);
+}
+
+function renderLeaderboardTo(noteId, listId, items, mode='local'){
+  const note=document.getElementById(noteId);
+  const list=document.getElementById(listId);
+  if(!note || !list) return;
+  note.textContent = mode==='supabase' ? '雲端即時排行榜' : '本機測試排行榜';
+  if(!items.length){
+    list.innerHTML = `<li class="leaderboard-empty">目前還沒有人上榜，先測一輪直接搶下第一名。</li>`;
+    return;
+  }
+  list.innerHTML = items.map((item,idx)=>`
+    <li class="leaderboard-item">
+      <div class="leaderboard-rank">#${idx+1}</div>
+      <div>
+        <div class="leaderboard-name">${escapeHtml(item.name || '匿名同事')}</div>
+        <div class="leaderboard-meta">${escapeHtml(item.result_title || '')}</div>
+      </div>
+      <div class="leaderboard-score">${Math.max(0, item.final_score || 0)} 分</div>
+    </li>
+  `).join('');
+}
+
+async function copyShortResult(){
+  if(!lastResultPayload) return;
+  const shortDesc = lastResultPayload.short_copy || '辦公室宇宙已留下這次傳說級紀錄。';
+  const text = [
+    '╭・🌪️ 職場惡行檢定結果出爐 🌪️・╮',
+    `│ ${lastResultPayload.name}：${lastResultPayload.result_title}`,
+    `│ 壞壞指數 ${Math.max(0,lastResultPayload.final_score)} 分`,
+    '├────────────────',
+    `│ ${shortDesc}`,
+    '├────────────────',
+    `│ 快來測：${SHARE_URL}`,
+    '╰・📎 看看自己在辦公室有多壞壞 ・╯'
+  ].join('\n');
+  try{
+    await navigator.clipboard.writeText(text);
+    alert('已複製結果文字！');
+  }catch(err){
+    const ta=document.createElement('textarea');
+    ta.value=text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    alert('已複製結果文字！');
+  }
+}
+
 
 function startQuiz(){
   const input=document.getElementById('player-name');
@@ -636,11 +742,19 @@ function renderQ(i){
 
 function updateSlider(val){answers[currentQ]=parseInt(val);document.getElementById('slider-val').innerHTML=`${val} <span>/ 9</span>`;}
 function prevQ(){if(currentQ>0)renderQ(currentQ-1);}
-function nextQ(){currentQ<questions.length-1?renderQ(currentQ+1):showResult();}
+function nextQ(){
+  if(isSubmittingResult) return;
+  if(currentQ<questions.length-1){
+    renderQ(currentQ+1);
+  }else{
+    showResult();
+  }
+}
 
 async function saveResult(payload){
   saveResultToLocal(payload);
   if(!SUPABASE_URL || !SUPABASE_ANON_KEY) return {mode:'local'};
+  const { short_copy, ...dbPayload } = payload;
   try{
     const res = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`, {
       method:'POST',
@@ -648,11 +762,14 @@ async function saveResult(payload){
         'Content-Type':'application/json',
         'apikey':SUPABASE_ANON_KEY,
         'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,
-        'Prefer':'return=minimal'
+        'Prefer':'return=representation'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(dbPayload)
     });
-    if(!res.ok) throw new Error(`save failed: ${res.status}`);
+    if(!res.ok){
+      const errText = await res.text();
+      throw new Error(`save failed: ${res.status} | ${errText}`);
+    }
     return {mode:'supabase'};
   }catch(err){
     console.error(err);
@@ -690,23 +807,7 @@ async function fetchLeaderboard(){
 }
 
 function renderLeaderboard(items, mode='local'){
-  const note=document.getElementById('leaderboard-note');
-  const list=document.getElementById('leaderboard-list');
-  note.textContent = mode==='supabase' ? '雲端即時排行榜' : '本機測試排行榜';
-  if(!items.length){
-    list.innerHTML = `<li class="leaderboard-empty">目前還沒有人上榜，先測一輪直接搶下第一名。</li>`;
-    return;
-  }
-  list.innerHTML = items.map((item,idx)=>`
-    <li class="leaderboard-item">
-      <div class="leaderboard-rank">#${idx+1}</div>
-      <div>
-        <div class="leaderboard-name">${escapeHtml(item.name || '匿名同事')}</div>
-        <div class="leaderboard-meta">${escapeHtml(item.result_title || '')}</div>
-      </div>
-      <div class="leaderboard-score">${Math.max(0, item.final_score || 0)} 分</div>
-    </li>
-  `).join('');
+  renderLeaderboardTo('leaderboard-note','leaderboard-list', items, mode);
 }
 
 function escapeHtml(str=''){
@@ -714,102 +815,134 @@ function escapeHtml(str=''){
 }
 
 async function showResult(){
-  let bad=0,good=0;
-  const badCrimeScores = [];
-  const goodDeedScores = [];
-  const maxBad = questions.filter(q=>q.type==='bad').length * 9;
-  const maxGood = questions.filter(q=>q.type==='good').length * 9;
+  if(isSubmittingResult) return;
+  isSubmittingResult=true;
 
-  questions.forEach((q,i)=>{
-    if(q.type==='bad'){
-      bad+=answers[i];
-      badCrimeScores.push({
-        label:q.crimeLabel || q.text,
-        score:answers[i]
-      });
-    }else{
-      good+=answers[i];
-      goodDeedScores.push({
-        label:q.text,
-        score:answers[i]
-      });
+  const nextBtn=document.getElementById('btn-next');
+  const prevBtn=document.getElementById('btn-prev');
+  const originalNextLabel=nextBtn ? nextBtn.textContent : '看結果！🎉';
+  if(nextBtn){
+    nextBtn.disabled=true;
+    nextBtn.classList.add('loading');
+    nextBtn.textContent='結果生成中...';
+  }
+  if(prevBtn) prevBtn.disabled=true;
+
+  try{
+    let bad=0,good=0;
+    const badCrimeScores = [];
+    const goodDeedScores = [];
+    const maxBad = questions.filter(q=>q.type==='bad').length * 9;
+    const maxGood = questions.filter(q=>q.type==='good').length * 9;
+
+    questions.forEach((q,i)=>{
+      if(q.type==='bad'){
+        bad+=answers[i];
+        badCrimeScores.push({
+          label:q.crimeLabel || q.text,
+          score:answers[i]
+        });
+      }else{
+        good+=answers[i];
+        goodDeedScores.push({
+          label:q.text,
+          score:answers[i]
+        });
+      }
+    });
+
+    const score=bad-good;
+    const result=results.find(r=>score>=r.range[0]&&score<=r.range[1])||results[results.length-1];
+    const dangerPct = Math.max(0, Math.min(100, Math.round(((score + maxGood) / (maxBad + maxGood)) * 100)));
+    const chaosPct = Math.round((bad / maxBad) * 100);
+    const warmPct = Math.round((good / maxGood) * 100);
+
+    document.getElementById('result-title').textContent=`${playerName} 的結果：${result.title}`;
+    document.getElementById('result-subtitle').textContent=result.subtitle;
+    document.getElementById('result-score').textContent=Math.max(0,score);
+    document.getElementById('result-banner').style.background=result.banner;
+    document.getElementById('bad-score-pill').textContent=`壞壞累積 ${bad} 分`;
+    document.getElementById('good-score-pill').textContent=`善良加回 ${good} 分`;
+    document.getElementById('result-desc').innerHTML=result.desc.replace(/\n/g,'<br>');
+    document.getElementById('result-illust').innerHTML=resultIllusts[result.illust]||'';
+
+    document.getElementById('danger-value').textContent = `${dangerPct}%`;
+    document.getElementById('chaos-value').textContent = `${chaosPct}%`;
+    document.getElementById('warm-value').textContent = `${warmPct}%`;
+    document.getElementById('danger-fill').style.width = `${dangerPct}%`;
+    document.getElementById('chaos-fill').style.width = `${chaosPct}%`;
+    document.getElementById('warm-fill').style.width = `${warmPct}%`;
+
+    const top3 = badCrimeScores
+      .filter(item => item.score > 5)
+      .sort((a,b)=> b.score-a.score || a.label.localeCompare(b.label,'zh-Hant'))
+      .slice(0,3);
+
+    const good3 = goodDeedScores
+      .filter(item => item.score > 5)
+      .sort((a,b)=> b.score-a.score || a.label.localeCompare(b.label,'zh-Hant'))
+      .slice(0,3);
+
+    const top3List = document.getElementById('top3-list');
+    top3List.innerHTML = top3.length ? top3.map((item,idx)=>`
+      <li class="top3-item">
+        <span class="top3-rank">#${idx+1}</span>
+        <span class="top3-name">${item.label}</span>
+        <span class="top3-points">犯案值 ${item.score} / 9</span>
+      </li>
+    `).join('') : `<li class="leaderboard-empty">目前沒有超過 5 分的惡行上榜，今天先安全過關。</li>`;
+
+    const good3List = document.getElementById('good3-list');
+    good3List.innerHTML = good3.length ? good3.map((item,idx)=>`
+      <li class="top3-item">
+        <span class="top3-rank">#${idx+1}</span>
+        <span class="top3-name">${item.label}</span>
+        <span class="top3-points">善行值 ${item.score} / 9</span>
+      </li>
+    `).join('') : `<li class="leaderboard-empty">目前沒有超過 5 分的善行上榜，低調做人模式啟動中。</li>`;
+
+    const shortCopyMap = {
+      '辦公室小天使 😇':'辦公室氣場乾淨到像自帶聖光，根本是同事的續命補包。',
+      '穩定無害型同事 🙂':'相處起來不內耗、不驚嚇，屬於大家默默想留下來共事的舒適牌隊友。',
+      '還行還行 😏':'偶爾放出幾朵小雷花，但整體還在可愛又可救的範圍內。',
+      '相當壞壞 😤':'有些習慣真的很有存在感，同事的白眼值可能已經悄悄累積中。',
+      '好壞壞！職場危險份子 😈':'壞壞能量外溢到藏不住，辦公室宇宙已經幫這位名字加粗。'
+    };
+
+    const payload = {
+      name: playerName,
+      answers,
+      bad_score: bad,
+      good_score: good,
+      final_score: score,
+      result_title: result.title,
+      top3_crimes: top3,
+      top3_good_deeds: good3,
+      danger_pct: dangerPct,
+      chaos_pct: chaosPct,
+      warm_pct: warmPct,
+      short_copy: shortCopyMap[result.title] || '辦公室宇宙已留下這次傳說級紀錄。',
+      created_at: new Date().toISOString()
+    };
+    lastResultPayload = payload;
+    const saveInfo = await saveResult(payload);
+    const leaderboard = await fetchLeaderboard();
+    renderLeaderboard(leaderboard.items, leaderboard.mode || saveInfo.mode);
+
+    showScreen('screen-result');
+    launchConfetti();
+  } finally {
+    if(nextBtn){
+      nextBtn.disabled=false;
+      nextBtn.classList.remove('loading');
+      nextBtn.textContent=originalNextLabel;
     }
-  });
-
-  const score=bad-good;
-  const result=results.find(r=>score>=r.range[0]&&score<=r.range[1])||results[results.length-1];
-  const dangerPct = Math.max(0, Math.min(100, Math.round(((score + maxGood) / (maxBad + maxGood)) * 100)));
-  const chaosPct = Math.round((bad / maxBad) * 100);
-  const warmPct = Math.round((good / maxGood) * 100);
-
-  document.getElementById('result-title').textContent=`${playerName} 的結果：${result.title}`;
-  document.getElementById('result-subtitle').textContent=result.subtitle;
-  document.getElementById('result-score').textContent=Math.max(0,score);
-  document.getElementById('result-banner').style.background=result.banner;
-  document.getElementById('bad-score-pill').textContent=`壞壞累積 ${bad} 分`;
-  document.getElementById('good-score-pill').textContent=`善良加回 ${good} 分`;
-  document.getElementById('result-desc').innerHTML=result.desc.replace(/\n/g,'<br>');
-  document.getElementById('result-illust').innerHTML=resultIllusts[result.illust]||'';
-
-  document.getElementById('danger-value').textContent = `${dangerPct}%`;
-  document.getElementById('chaos-value').textContent = `${chaosPct}%`;
-  document.getElementById('warm-value').textContent = `${warmPct}%`;
-  document.getElementById('danger-fill').style.width = `${dangerPct}%`;
-  document.getElementById('chaos-fill').style.width = `${chaosPct}%`;
-  document.getElementById('warm-fill').style.width = `${warmPct}%`;
-
-  const top3 = badCrimeScores
-    .filter(item => item.score > 5)
-    .sort((a,b)=> b.score-a.score || a.label.localeCompare(b.label,'zh-Hant'))
-    .slice(0,3);
-
-  const good3 = goodDeedScores
-    .filter(item => item.score > 5)
-    .sort((a,b)=> b.score-a.score || a.label.localeCompare(b.label,'zh-Hant'))
-    .slice(0,3);
-
-  const top3List = document.getElementById('top3-list');
-  top3List.innerHTML = top3.length ? top3.map((item,idx)=>`
-    <li class="top3-item">
-      <span class="top3-rank">#${idx+1}</span>
-      <span class="top3-name">${item.label}</span>
-      <span class="top3-points">犯案值 ${item.score} / 9</span>
-    </li>
-  `).join('') : `<li class="leaderboard-empty">目前沒有超過 5 分的惡行上榜，今天先安全過關。</li>`;
-
-  const good3List = document.getElementById('good3-list');
-  good3List.innerHTML = good3.length ? good3.map((item,idx)=>`
-    <li class="top3-item">
-      <span class="top3-rank">#${idx+1}</span>
-      <span class="top3-name">${item.label}</span>
-      <span class="top3-points">善行值 ${item.score} / 9</span>
-    </li>
-  `).join('') : `<li class="leaderboard-empty">目前沒有超過 5 分的善行上榜，低調做人模式啟動中。</li>`;
-
-  const payload = {
-    name: playerName,
-    answers,
-    bad_score: bad,
-    good_score: good,
-    final_score: score,
-    result_title: result.title,
-    top3_crimes: top3,
-    top3_good_deeds: good3,
-    danger_pct: dangerPct,
-    chaos_pct: chaosPct,
-    warm_pct: warmPct,
-    created_at: new Date().toISOString()
-  };
-  lastResultPayload = payload;
-  const saveInfo = await saveResult(payload);
-  const leaderboard = await fetchLeaderboard();
-  renderLeaderboard(leaderboard.items, leaderboard.mode || saveInfo.mode);
-
-  showScreen('screen-result');
-  launchConfetti();
+    if(prevBtn) prevBtn.disabled=false;
+    isSubmittingResult=false;
+  }
 }
 
-function restart(){answers=new Array(questions.length).fill(4);currentQ=0;showScreen('screen-intro');const input=document.getElementById('player-name'); if(input){input.focus(); input.style.borderColor='var(--navy)';}}
+function restart(){answers=new Array(questions.length).fill(4);currentQ=0;isSubmittingResult=false;showScreen('screen-intro');const input=document.getElementById('player-name'); if(input){input.focus(); input.style.borderColor='var(--navy)';} const nextBtn=document.getElementById('btn-next'); if(nextBtn){nextBtn.disabled=false; nextBtn.classList.remove('loading'); nextBtn.textContent='下一題 →';}}
 
 function launchConfetti(){
   const cols=['#FF6B6B','#FFB347','#6BDFB8','#C3B1E1','#FFE066','#FF8FAB'];
