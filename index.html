@@ -38,24 +38,6 @@
   .btn-start:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--coral);}
   .btn-start:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--coral);}
 
-
-  .name-box{margin:0 auto 24px;max-width:360px;text-align:left;}
-  .name-label{display:block;font-size:.95rem;font-weight:900;color:var(--navy);margin-bottom:8px;}
-  .name-input{width:100%;padding:14px 16px;border:3px solid var(--navy);border-radius:18px;font-size:1rem;font-family:'Noto Sans TC',sans-serif;outline:none;box-shadow:4px 4px 0 rgba(45,42,74,.08);}
-  .name-input:focus{border-color:var(--coral);}
-  .name-tip{font-size:.82rem;color:#666;line-height:1.6;margin-top:8px;}
-  .stats-box{background:#fffaf3;border:3px solid var(--navy);border-radius:24px;padding:18px 18px 8px;margin:18px 0;box-shadow:4px 4px 0 rgba(45,42,74,.08);}
-  .stats-title{font-size:1rem;font-weight:900;color:var(--navy);margin-bottom:12px;}
-  .stat-row{margin-bottom:14px;}
-  .stat-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:12px;}
-  .stat-label{font-size:.92rem;font-weight:800;color:var(--navy);}
-  .stat-value{font-size:.88rem;font-weight:900;color:var(--coral);white-space:nowrap;}
-  .stat-track{height:12px;background:#efe7dc;border:2px solid var(--navy);border-radius:999px;overflow:hidden;}
-  .stat-fill{height:100%;width:0%;border-radius:999px;transition:width .5s ease;}
-  .stat-fill.danger{background:linear-gradient(90deg,#FFE066,#FF6B6B);}
-  .stat-fill.chaos{background:linear-gradient(90deg,#FFB347,#FF6B6B);}
-  .stat-fill.warm{background:linear-gradient(90deg,#6BDFB8,#C3B1E1);}
-
   /* QUIZ */
   .q-counter{font-size:.8rem;color:#BBB;font-weight:700;margin-bottom:12px;text-align:right;width:100%;}
   .progress-bar-wrap{width:100%;height:10px;background:#EEE;border-radius:99px;margin-bottom:20px;overflow:hidden;border:2px solid var(--navy);}
@@ -94,15 +76,7 @@
   .score-pill{padding:7px 16px;border-radius:99px;font-size:.82rem;font-weight:700;border:2px solid var(--navy);}
   .score-pill.bad{background:#FFE5E5;color:var(--coral);}
   .score-pill.good{background:#E5FFF6;color:#3DBFA0;}
-  .result-desc{background:var(--cream);border-radius:16px;padding:20px;font-size:.95rem;line-height:1.8;color:#555;margin-bottom:18px;border:2px dashed #DDD;text-align:left;}
-  .top3-box{background:#FFF6FB;border:2px solid var(--navy);border-radius:18px;padding:18px 18px 14px;margin-bottom:22px;text-align:left;box-shadow:4px 4px 0 rgba(45,42,74,.08);}
-  .top3-title{font-size:1rem;font-weight:900;color:var(--navy);margin-bottom:10px;}
-  .top3-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;}
-  .top3-item{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;font-size:.92rem;line-height:1.6;color:#444;padding-bottom:8px;border-bottom:1px dashed #E7C9D7;}
-  .top3-item:last-child{border-bottom:none;padding-bottom:0;}
-  .top3-rank{font-weight:900;color:var(--coral);min-width:24px;}
-  .top3-name{flex:1;font-weight:700;color:var(--navy);}
-  .top3-points{font-size:.82rem;font-weight:700;color:#777;white-space:nowrap;}
+  .result-desc{background:var(--cream);border-radius:16px;padding:20px;font-size:.95rem;line-height:1.8;color:#555;margin-bottom:28px;border:2px dashed #DDD;text-align:left;}
   .btn-retry{background:var(--coral);color:white;border:3px solid var(--navy);border-radius:99px;padding:14px 40px;font-size:1rem;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;box-shadow:4px 4px 0 var(--navy);transition:transform .15s,box-shadow .15s;}
   .btn-retry:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--navy);}
 
@@ -160,12 +134,7 @@
       <div class="intro-tags">
         <span class="intro-tag">😈 壞壞行為</span>
         <span class="intro-tag">🌟 加分表現</span>
-        <span class="intro-tag">🎯 共 16 題</span>
-      </div>
-      <div class="name-box">
-        <label class="name-label" for="player-name">第一題，先報上名來 ✍️</label>
-        <input class="name-input" id="player-name" type="text" maxlength="20" placeholder="輸入名字或暱稱">
-        <div class="name-tip">結果頁會帶入名字；不填也能玩，會自動顯示「匿名同事」。</div>
+        <span class="intro-tag">🎯 共 15 題</span>
       </div>
       <button class="btn-start" onclick="startQuiz()">開始測驗！</button>
     </div>
@@ -173,7 +142,7 @@
 
   <!-- QUIZ -->
   <div class="screen" id="screen-quiz">
-    <div class="q-counter" id="q-counter">1 / 16</div>
+    <div class="q-counter" id="q-counter">1 / 15</div>
     <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
     <div class="section-badge bad" id="section-badge">😈 壞壞行為</div>
     <div class="q-card">
@@ -202,25 +171,6 @@
       <div class="score-breakdown">
         <div class="score-pill bad"  id="bad-score-pill"></div>
         <div class="score-pill good" id="good-score-pill"></div>
-      </div>
-      <div class="stats-box">
-        <div class="stats-title">職場人格戰報</div>
-        <div class="stat-row">
-          <div class="stat-head"><span class="stat-label">職場危險濃度</span><span class="stat-value" id="danger-value">0%</span></div>
-          <div class="stat-track"><div class="stat-fill danger" id="danger-fill"></div></div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-head"><span class="stat-label">惹事失控指數</span><span class="stat-value" id="chaos-value">0%</span></div>
-          <div class="stat-track"><div class="stat-fill chaos" id="chaos-fill"></div></div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-head"><span class="stat-label">同事緣補血指數</span><span class="stat-value" id="warm-value">0%</span></div>
-          <div class="stat-track"><div class="stat-fill warm" id="warm-fill"></div></div>
-        </div>
-      </div>
-      <div class="top3-box">
-        <div class="top3-title">你的職場惡行 Top 3</div>
-        <ul class="top3-list" id="top3-list"></ul>
       </div>
       <div class="result-desc" id="result-desc"></div>
       <button class="btn-retry" onclick="restart()">🔄 再測一次</button>
@@ -494,83 +444,40 @@ const resultIllusts = {
     <text x="8" y="48" font-size="18">😈</text><text x="128" y="50" font-size="16">💀</text><text x="66" y="18" font-size="12">👿</text>`
 };
 
-// 8 bad + 8 good = 16 questions, interleaved
+// 8 bad + 7 good = 15 questions, interleaved
 const allQ = [
-  {type:'bad',  text:'你有多常叫錯同事的名字，而且還不只一次？',                           emojiScale:['😇','😅','😶','😐','🙄','😬','😤','😡','🤬','💀'], illust:'wrongname',  crimeLabel:'把同事名字一錯再錯'},
-  {type:'bad',  text:'你有多常彈手指、打響指來叫同事過來？',                                 emojiScale:['😇','😌','😶','😐','🫰','😬','😤','😡','🤬','🫰💢'], illust:'snapfinger', crimeLabel:'把同事當服務鈴叫來叫去'},
-  {type:'bad',  text:'你說話有多不客氣，直接「欸欸欸」不說請＆謝謝',                         emojiScale:['😇','😌','😶','😑','🙄','😬','😤','😡','🤬','💥'], illust:'rude',       crimeLabel:'全程欸欸欸、不說請也不說謝謝'},
-  {type:'bad',  text:'你有多常拖拖拉拉讓同事在後面等你的進度？',                             emojiScale:['⚡','😊','😌','😶','🐢','🐌','🛌','💤','⏰','🕰️'], illust:'lazy',       crimeLabel:'拖到同事只能在後面乾等'},
-  {type:'bad',  text:'你有多常自己出包，然後連累旁邊同事幫你善後？',                         emojiScale:['😇','😌','😶','😅','🫣','😬','😰','💸','🔥','💣'], illust:'mess',       crimeLabel:'自己出包還讓同事跟著收爛攤子'},
-  {type:'bad',  text:'出了狀況之後，你有多常一聲對不起都沒說就裝沒事？',                     emojiScale:['😇','😌','😶','😐','🙄','😬','😤','😡','🤬','🤐'], illust:'noapology',  crimeLabel:'出事後不道歉直接裝沒事'},
-  {type:'bad',  text:'自己搞砸的事，你有多常偷偷暗示或明示是別人的問題？',                   emojiScale:['😇','😌','😶','😐','👀','😬','😒','😡','🤬','💀'], illust:'blame',      crimeLabel:'搞砸後還偷偷把鍋往別人身上推'},
-  {type:'bad',  text:'你有多常在辦公室裡大聲講讓人尷尬的黃色笑話？',                         emojiScale:['😇','😌','😶','😐','🌶️','😬','😳','🙈','🤬','🚨'], illust:'yellowjoke', crimeLabel:'在辦公室大講讓人尷尬的黃色笑話'},
-
-  {type:'good', text:'你有曾經請過同事飲料或零食嗎？',                                       emojiScale:['😶','🙂','😊','☕','🧋','🎁','🥤','🍩','🫶','✨'], illust:'drinks'},
-  {type:'good', text:'你有多常在同事還沒開口前，就主動上前幫忙？',                           emojiScale:['😶','🙂','😊','🤝','💪','⭐','🌟','💫','🦸','✨'], illust:'prohelp'},
-  {type:'good', text:'同事被壞壞同事纏上時，你有多常挺身而出解圍？',                         emojiScale:['😶','🙈','😅','🤷','🧐','💪','🦸','🛡️','⚔️','🌟'], illust:'rescue'},
-  {type:'good', text:'你有多常在忙碌工作中為同事提供情緒價值？',                             emojiScale:['😶','🙂','💬','😊','🫂','💛','🌈','🫶','💝','✨'], illust:'emotional'},
-  {type:'good', text:'遇到新來的同事，你有多常主動找他們互動聊天？',                         emojiScale:['😶','🙂','😊','👋','🗺️','🤝','🌟','💫','🦸','✨'], illust:'newbie'},
-  {type:'good', text:'你會關心是否有人沒跟上午餐團的隊伍嗎？',                               emojiScale:['😶','🙂','😊','🍱','👀','🥹','🫶','💛','✨','🌟'], illust:'drinks'},
-  {type:'good', text:'你有多常記住同事的生日，並主動幫忙慶祝或表示祝賀？',                   emojiScale:['😶','🙂','😊','🎂','🎉','🥳','🌟','💫','🫶','✨'], illust:'birthday'},
-  {type:'good', text:'同事壓力爆表或臨時有急事時，你有多常主動說「我來幫你分擔一些」？',     emojiScale:['😶','🙂','😊','🤝','💪','⭐','🌟','💫','🦸','✨'], illust:'shareload'},
+  {type:'bad',  text:'你有多常叫錯同事的名字，而且還叫不只一次？',                       emojiScale:['😇','😅','😶','😐','🙄','😬','😤','😡','🤬','💀'], illust:'wrongname'  },
+  {type:'bad',  text:'你有多常彈手指、打響指來叫同事過來？',                             emojiScale:['😇','😌','😶','😐','🫰','😬','😤','😡','🤬','🫰💢'],illust:'snapfinger' },
+  {type:'bad',  text:'你說話有多不客氣，直接「欸你去做」不說請謝謝？',                   emojiScale:['😇','😌','😶','😑','🙄','😬','😤','😡','🤬','💥'], illust:'rude'       },
+  {type:'bad',  text:'你有多常拖拖拉拉讓同事在後面等你的進度？',                         emojiScale:['⚡','😊','😌','😶','🐢','🐌','🛌','💤','⏰','🕰️'],illust:'lazy'       },
+  {type:'bad',  text:'你有多常自己出包，然後連累旁邊同事幫你善後？',                     emojiScale:['😇','😌','😶','😅','🫣','😬','😰','💸','🔥','💣'], illust:'mess'       },
+  {type:'bad',  text:'出了狀況之後，你有多常一聲對不起都沒說就直接略過？',               emojiScale:['😇','😌','😶','😐','🙄','😬','😤','😡','🤬','🤐'], illust:'noapology'  },
+  {type:'bad',  text:'自己搞砸的事，你有多常偷偷暗示或明示是別人的問題？',               emojiScale:['😇','😌','😶','😐','👀','😬','😒','😡','🤬','💀'], illust:'blame'      },
+  {type:'bad',  text:'你有多常在辦公室裡大聲講讓人尷尬的黃色笑話？',                     emojiScale:['😇','😌','😶','😐','🌶️','😬','😳','🙈','🤬','🚨'],illust:'yellowjoke' },
+  {type:'good', text:'你有多常突然幫全辦公室買飲料或零食？',                             emojiScale:['😶','🙂','😊','☕','🧋','🎁','🥤','🍩','🫶','✨'], illust:'drinks'     },
+  {type:'good', text:'你有多常在同事還沒開口前，就主動上前幫忙？',                       emojiScale:['😶','🙂','😊','🤝','💪','⭐','🌟','💫','🦸','✨'], illust:'prohelp'    },
+  {type:'good', text:'同事被壞壞同事纏上時，你有多常挺身而出解圍？',                     emojiScale:['😶','🙈','😅','🤷','🧐','💪','🦸','🛡️','⚔️','🌟'],illust:'rescue'     },
+  {type:'good', text:'你有多常在忙碌工作中為同事提供情緒價值？（聊天、安慰、分享心情）', emojiScale:['😶','🙂','💬','😊','🫂','💛','🌈','🫶','💝','✨'], illust:'emotional'  },
+  {type:'good', text:'遇到新來的同事，你有多常主動帶他們認識環境、介紹大家？',           emojiScale:['😶','🙂','😊','👋','🗺️','🤝','🌟','💫','🦸','✨'], illust:'newbie'     },
+  {type:'good', text:'你有多常記住同事的生日，並主動幫忙慶祝或表示祝賀？',               emojiScale:['😶','🙂','😊','🎂','🎉','🥳','🌟','💫','🫶','✨'], illust:'birthday'   },
+  {type:'good', text:'同事壓力爆表或臨時有急事時，你有多常主動說「我來幫你分擔一些」？', emojiScale:['😶','🙂','😊','🤝','💪','⭐','🌟','💫','🦸','✨'], illust:'shareload'  },
 ];
 
-// Interleaved order: bad, good, bad, good ...
-const ORDER = [0,8, 1,9, 2,10, 3,11, 4,12, 5,13, 6,14, 7,15];
+// Interleaved order: bad, good, bad, good ... balanced mix
+const ORDER = [0,8, 1,9, 2,10, 3,11, 4,12, 5,13, 6,14, 7];
 const questions = ORDER.map(i => allQ[i]);
 
 const results = [
-  {
-    range:[-999,-12],
-    title:'辦公室小天使 😇',
-    subtitle:'不太製造麻煩，還常常默默補位',
-    banner:'linear-gradient(90deg,#6BDFB8,#FFE066,#6BDFB8)',
-    illust:'angel',
-    desc:'在辦公室裡通常屬於讓人安心的存在。未必最浮誇、最會表現，但相處起來順，出事時也常願意接住場面。\n\n比較需要注意的反而不是壞習慣，而是太容易變成那個一直收尾的人。溫柔歸溫柔，界線還是要留一下。'
-  },
-  {
-    range:[-11,5],
-    title:'穩定無害型同事 🙂',
-    subtitle:'不一定最暖，但基本上很好共事',
-    banner:'linear-gradient(90deg,#FFE066,#6BDFB8)',
-    illust:'normal',
-    desc:'整體屬於安全牌同事。平常不太主動惹事，也不太會讓別人額外花力氣應付。也許不是辦公室裡最會照顧大家情緒的那一位，但至少相處起來不累。\n\n這類型其實很稀有，因為職場最難得的，往往就是穩定、正常、沒有奇怪驚喜。'
-  },
-  {
-    range:[6,20],
-    title:'還行還行 😏',
-    subtitle:'有點小毛邊，但還在可相處範圍',
-    banner:'linear-gradient(90deg,#FFB347,#FFE066)',
-    illust:'mild',
-    desc:'不是完美同事，但也還沒到讓人想避開。偶爾會有點粗線條、偶爾會讓同事心裡小小震一下，不過大致上仍在「算了還行啦」的範圍內。\n\n只要把最常出現的幾個小雷點收斂一下，整體同事緣通常會直接升級。'
-  },
-  {
-    range:[21,38],
-    title:'相當壞壞 😤',
-    subtitle:'有些習慣，可能已經被同事默默記上一筆',
-    banner:'linear-gradient(90deg,#FF8FAB,#FF6B6B)',
-    illust:'bad',
-    desc:'某些工作習慣或說話方式，已經不只是小毛邊，而是會讓周圍的人開始有感。也許不是故意，但拖進度、略過道歉、把尷尬丟給別人，這些累積起來真的很有存在感。\n\n這個區間最值得做的事，是先認真看一下高分惡行清單，通常答案都藏在那裡。'
-  },
-  {
-    range:[39,999],
-    title:'好壞壞！職場危險份子 😈',
-    subtitle:'能力先不論，破壞力已經先被記住',
-    banner:'linear-gradient(90deg,#FF6B6B,#C3B1E1,#FF6B6B)',
-    illust:'devil',
-    desc:'在職場裡已經不是普通小雷，比較像會讓別人提前做心理準備的類型。問題不一定是惡意，而是某些行為模式真的很容易造成他人負擔。\n\n可怕的從來不是有缺點，而是完全沒發現缺點正在穩定輸出。先從前三名惡行開始修，還來得及從危險份子退回人類模式。'
-  },
+  {range:[-999,5],  title:'辦公室天使 😇',       subtitle:'壞壞值趨近於零，你是同事們的守護神',  banner:'linear-gradient(90deg,#6BDFB8,#FFE066,#6BDFB8)', illust:'angel',  desc:'✨ 結果描述待補充 ✨\n\n這裡會放這個等級的描述，告訴使用者他是多棒的同事！'},
+  {range:[6,22],    title:'偶爾小壞壞 😌',       subtitle:'瑕不掩瑜，整體而言是個好同事',         banner:'linear-gradient(90deg,#FFE066,#6BDFB8)',           illust:'normal', desc:'🙂 結果描述待補充 🙂\n\n這裡會放這個等級的描述！'},
+  {range:[23,38],   title:'微微壞壞 😏',         subtitle:'壞壞指數中等，還有成長空間！',          banner:'linear-gradient(90deg,#FFB347,#FFE066)',           illust:'mild',   desc:'😏 結果描述待補充 😏\n\n這裡會放這個等級的描述！'},
+  {range:[39,55],   title:'相當壞壞 😤',         subtitle:'同事私下肯定在討論你！',               banner:'linear-gradient(90deg,#FF8FAB,#FF6B6B)',           illust:'bad',    desc:'😤 結果描述待補充 😤\n\n這裡會放這個等級的描述！'},
+  {range:[56,9999], title:'傳說中的壞壞同事 😈', subtitle:'你就是大家最怕遇到的那個人...',         banner:'linear-gradient(90deg,#FF6B6B,#C3B1E1,#FF6B6B)',   illust:'devil',  desc:'😈 結果描述待補充 😈\n\n這裡會放這個等級的描述！'},
 ];
 
 let currentQ=0, answers=new Array(questions.length).fill(4);
-let playerName='匿名同事';
 
-function startQuiz(){
-  const raw=(document.getElementById('player-name')?.value||'').trim();
-  playerName=raw||'匿名同事';
-  showScreen('screen-quiz');
-  renderQ(0);
-}
+function startQuiz(){showScreen('screen-quiz');renderQ(0);}
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
 function renderQ(i){
@@ -601,29 +508,10 @@ function nextQ(){currentQ<questions.length-1?renderQ(currentQ+1):showResult();}
 
 function showResult(){
   let bad=0,good=0;
-  const badCrimeScores = [];
-  const maxBad = questions.filter(q=>q.type==='bad').length * 9;
-  const maxGood = questions.filter(q=>q.type==='good').length * 9;
-
-  questions.forEach((q,i)=>{
-    if(q.type==='bad'){
-      bad+=answers[i];
-      badCrimeScores.push({
-        label:q.crimeLabel || q.text,
-        score:answers[i]
-      });
-    }else{
-      good+=answers[i];
-    }
-  });
-
+  questions.forEach((q,i)=>{if(q.type==='bad')bad+=answers[i];else good+=answers[i];});
   const score=bad-good;
   const result=results.find(r=>score>=r.range[0]&&score<=r.range[1])||results[results.length-1];
-  const dangerPct = Math.max(0, Math.min(100, Math.round(((score + maxGood) / (maxBad + maxGood)) * 100)));
-  const chaosPct = Math.round((bad / maxBad) * 100);
-  const warmPct = Math.round((good / maxGood) * 100);
-
-  document.getElementById('result-title').textContent=`${playerName} 的結果：${result.title}`;
+  document.getElementById('result-title').textContent=result.title;
   document.getElementById('result-subtitle').textContent=result.subtitle;
   document.getElementById('result-score').textContent=Math.max(0,score);
   document.getElementById('result-banner').style.background=result.banner;
@@ -631,32 +519,11 @@ function showResult(){
   document.getElementById('good-score-pill').textContent=`善良加回 ${good} 分`;
   document.getElementById('result-desc').innerHTML=result.desc.replace(/\n/g,'<br>');
   document.getElementById('result-illust').innerHTML=resultIllusts[result.illust]||'';
-
-  document.getElementById('danger-value').textContent = `${dangerPct}%`;
-  document.getElementById('chaos-value').textContent = `${chaosPct}%`;
-  document.getElementById('warm-value').textContent = `${warmPct}%`;
-  document.getElementById('danger-fill').style.width = `${dangerPct}%`;
-  document.getElementById('chaos-fill').style.width = `${chaosPct}%`;
-  document.getElementById('warm-fill').style.width = `${warmPct}%`;
-
-  const top3 = badCrimeScores
-    .sort((a,b)=> b.score-a.score || a.label.localeCompare(b.label,'zh-Hant'))
-    .slice(0,3);
-
-  const top3List = document.getElementById('top3-list');
-  top3List.innerHTML = top3.map((item,idx)=>`
-    <li class="top3-item">
-      <span class="top3-rank">#${idx+1}</span>
-      <span class="top3-name">${item.label}</span>
-      <span class="top3-points">犯案值 ${item.score} / 9</span>
-    </li>
-  `).join('');
-
   showScreen('screen-result');
   launchConfetti();
 }
 
-function restart(){answers=new Array(questions.length).fill(4);currentQ=0;showScreen('screen-intro');document.getElementById('player-name').focus();}
+function restart(){answers=new Array(questions.length).fill(4);currentQ=0;showScreen('screen-intro');}
 
 function launchConfetti(){
   const cols=['#FF6B6B','#FFB347','#6BDFB8','#C3B1E1','#FFE066','#FF8FAB'];
