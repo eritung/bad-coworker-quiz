@@ -710,7 +710,7 @@ async function copyShortResult(){
     '├────────────────',
     `│ 快來測：${SHARE_URL}`,
     '╰・📎 看看自己在辦公室是哪一型 ・╯'
-  ].join('\\n');
+  ].join('\n');
   try{
     await navigator.clipboard.writeText(text);
     alert('已複製結果文字！');
