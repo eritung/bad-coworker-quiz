@@ -281,6 +281,7 @@
       </div>
       <div class="btn-row">
         <button class="btn-copy" onclick="copyShortResult()">📋 複製簡短結果</button>
+        <button class="btn-copy" onclick="copyResultLink()">🔗 複製結果連結</button>
         <button class="btn-retry" onclick="restart()">🔄 再測一次</button>
       </div>
     </div>
@@ -657,6 +658,162 @@ let isSubmittingResult=false;
 
 const SHARE_URL = 'https://eritung.github.io/bad-coworker-quiz/';
 
+const PREVIEW_PRESETS = {
+  angel:{name:'小天使測試號', bad_score:12, good_score:66, danger_pct:15, chaos_pct:92, warm_pct:8,
+    top3_crimes:[{label:'今天幾乎沒有惡行值得點名',score:0}],
+    top3_good_deeds:[{label:'主動幫忙同事處理工作',score:9},{label:'記得同事生日並主動祝賀',score:8},{label:'有人掉隊時會主動關心',score:7}]},
+  stable:{name:'穩定派測試號', bad_score:28, good_score:48, danger_pct:31, chaos_pct:67, warm_pct:23,
+    top3_crimes:[{label:'偶爾拖到同事在後面乾等',score:4}],
+    top3_good_deeds:[{label:'主動幫忙分擔工作',score:8},{label:'會請同事飲料或零食',score:7},{label:'主動找新同事聊天',score:6}]},
+  warm_chaos:{name:'又暖又雷測試號', bad_score:58, good_score:63, danger_pct:72, chaos_pct:78, warm_pct:67,
+    top3_crimes:[{label:'拖到同事只能在後面乾等',score:8},{label:'搞砸後還偷偷把鍋往別人身上推',score:7},{label:'全程欸欸欸、不說請也不說謝謝',score:6}],
+    top3_good_deeds:[{label:'主動幫忙分擔工作',score:9},{label:'會請同事飲料或零食',score:8},{label:'會替同事提供情緒價值',score:7}]},
+  salvageable:{name:'小雷測試號', bad_score:43, good_score:24, danger_pct:57, chaos_pct:31, warm_pct:63,
+    top3_crimes:[{label:'拖到同事只能在後面乾等',score:7},{label:'出事後不道歉直接裝沒事',score:6},{label:'飲料都喝完了，錢還在裝失憶',score:6}],
+    top3_good_deeds:[]},
+  pure_hazard:{name:'純雷測試號', bad_score:68, good_score:12, danger_pct:84, chaos_pct:15, warm_pct:88,
+    top3_crimes:[{label:'自己出包還讓同事跟著收爛攤子',score:9},{label:'搞砸後還偷偷把鍋往別人身上推',score:8},{label:'出事後不道歉直接裝沒事',score:8}],
+    top3_good_deeds:[]},
+  lowkey:{name:'路過型測試號', bad_score:20, good_score:16, danger_pct:22, chaos_pct:19, warm_pct:41,
+    top3_crimes:[], top3_good_deeds:[]}
+};
+
+function getQueryParams(){
+  return new URLSearchParams(window.location.search);
+}
+
+function getResultByKey(key){
+  return results.find(r=>r.key===key) || null;
+}
+
+function buildPreviewPayload(resultKey){
+  const result = getResultByKey(resultKey);
+  if(!result) return null;
+  const preset = PREVIEW_PRESETS[resultKey] || PREVIEW_PRESETS.stable;
+  return {
+    name:preset.name,
+    bad_score:preset.bad_score,
+    good_score:preset.good_score,
+    final_score:preset.warm_pct,
+    result_title:result.title,
+    danger_pct:preset.danger_pct,
+    chaos_pct:preset.chaos_pct,
+    warm_pct:preset.warm_pct,
+    evil_pct:preset.danger_pct,
+    good_pct:preset.chaos_pct,
+    top3_crimes:preset.top3_crimes,
+    top3_good_deeds:preset.top3_good_deeds,
+    short_copy:result.short || '辦公室宇宙已留下這次傳說級紀錄。',
+    preview_key:result.key,
+    preview_mode:true,
+    created_at:new Date().toISOString()
+  };
+}
+
+function renderResultFromPayload(payload){
+  const evilPct = payload.evil_pct ?? payload.danger_pct ?? 0;
+  const goodPct = payload.good_pct ?? payload.chaos_pct ?? 0;
+  const alertPct = payload.warm_pct ?? payload.final_score ?? 0;
+  const result = getResultByKey(payload.preview_key) || getResultProfile(evilPct, goodPct);
+  const player = payload.name || '匿名同事';
+
+  document.getElementById('result-title').textContent=`${player} 的結果：${result.title}`;
+  document.getElementById('result-subtitle').textContent=result.subtitle;
+  document.getElementById('result-score').textContent=evilPct;
+  document.getElementById('result-banner').style.background=result.banner;
+  document.getElementById('bad-score-pill').textContent=`惡行累積 ${payload.bad_score ?? 0} 分`;
+  document.getElementById('good-score-pill').textContent=`善行累積 ${payload.good_score ?? 0} 分`;
+  document.getElementById('result-desc').innerHTML=result.desc.replace(/\n/g,'<br>');
+  document.getElementById('result-illust').innerHTML=resultIllusts[result.illust]||'';
+  document.getElementById('danger-value').textContent = `${evilPct}%`;
+  document.getElementById('chaos-value').textContent = `${goodPct}%`;
+  document.getElementById('warm-value').textContent = `${alertPct}%`;
+  document.getElementById('danger-fill').style.width = `${evilPct}%`;
+  document.getElementById('chaos-fill').style.width = `${goodPct}%`;
+  document.getElementById('warm-fill').style.width = `${alertPct}%`;
+
+  const top3 = Array.isArray(payload.top3_crimes) ? payload.top3_crimes : [];
+  const good3 = Array.isArray(payload.top3_good_deeds) ? payload.top3_good_deeds : [];
+
+  const top3List = document.getElementById('top3-list');
+  top3List.innerHTML = top3.length ? top3.map((item,idx)=>`
+      <li class="top3-item">
+        <span class="top3-rank">#${idx+1}</span>
+        <span class="top3-name">${escapeHtml(item.label || item.name || '未命名罪行')}</span>
+        <span class="top3-points">犯案值 ${item.score ?? 0} / 9</span>
+      </li>
+    `).join('') : `<li class="leaderboard-empty">目前沒有超過 5 分的惡行上榜，今天先安全過關。</li>`;
+
+  const good3List = document.getElementById('good3-list');
+  good3List.innerHTML = good3.length ? good3.map((item,idx)=>`
+      <li class="top3-item">
+        <span class="top3-rank">#${idx+1}</span>
+        <span class="top3-name">${escapeHtml(item.label || item.name || '未命名善行')}</span>
+        <span class="top3-points">善行值 ${item.score ?? 0} / 9</span>
+      </li>
+    `).join('') : `<li class="leaderboard-empty">目前沒有超過 5 分的善行上榜，低調做人模式啟動中。</li>`;
+
+  lastResultPayload = {
+    ...payload,
+    name: player,
+    result_title: result.title,
+    evil_pct: evilPct,
+    good_pct: goodPct,
+    final_score: alertPct,
+    preview_key: payload.preview_key || result.key,
+    short_copy: payload.short_copy || result.short || '辦公室宇宙已留下這次傳說級紀錄。'
+  };
+}
+
+async function fetchResultRecord(recordId){
+  if(!SUPABASE_URL || !SUPABASE_ANON_KEY) throw new Error('Supabase 尚未設定完成');
+  const query = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?select=*&id=eq.${encodeURIComponent(recordId)}&limit=1`;
+  const res = await fetch(query, {
+    headers:{ 'apikey':SUPABASE_ANON_KEY, 'Authorization':`Bearer ${SUPABASE_ANON_KEY}` }
+  });
+  if(!res.ok) throw new Error(`record failed: ${res.status}`);
+  const data = await res.json();
+  return data?.[0] || null;
+}
+
+async function initFromURL(){
+  const params = getQueryParams();
+  const recordId = params.get('record');
+  const resultKey = params.get('result');
+  if(recordId){
+    try{
+      const record = await fetchResultRecord(recordId);
+      if(record){
+        renderResultFromPayload(record);
+        const leaderboard = await fetchLeaderboard();
+        renderLeaderboard(leaderboard.items, leaderboard.mode);
+        showScreen('screen-result');
+        return;
+      }
+      alert('找不到這筆結果紀錄，先回首頁～');
+    }catch(err){
+      console.error(err);
+      alert('這筆結果暫時載不出來，先回首頁看看。');
+    }
+  }
+  if(resultKey){
+    const preview = buildPreviewPayload(resultKey);
+    if(preview){
+      renderResultFromPayload(preview);
+      const leaderboard = await fetchLeaderboard();
+      renderLeaderboard(leaderboard.items, leaderboard.mode);
+      showScreen('screen-result');
+      return;
+    }
+  }
+}
+
+function clearQueryString(){
+  if(window.location.search){
+    history.replaceState({},'',window.location.pathname);
+  }
+}
+
 function backToIntro(){
   showScreen('screen-intro');
 }
@@ -726,6 +883,29 @@ async function copyShortResult(){
 }
 
 
+
+async function copyResultLink(){
+  if(!lastResultPayload) return;
+  let link = SHARE_URL;
+  if(lastResultPayload.record_id){
+    link = `${SHARE_URL}?record=${encodeURIComponent(lastResultPayload.record_id)}`;
+  }else if(lastResultPayload.preview_key){
+    link = `${SHARE_URL}?result=${encodeURIComponent(lastResultPayload.preview_key)}`;
+  }
+  try{
+    await navigator.clipboard.writeText(link);
+    alert('已複製結果連結！');
+  }catch(err){
+    const ta=document.createElement('textarea');
+    ta.value=link;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    alert('已複製結果連結！');
+  }
+}
+
 function startQuiz(){
   const input=document.getElementById('player-name');
   const raw=(input?.value||'').trim();
@@ -777,7 +957,7 @@ function nextQ(){
 async function saveResult(payload){
   saveResultToLocal(payload);
   if(!SUPABASE_URL || !SUPABASE_ANON_KEY) return {mode:'local'};
-  const { short_copy, evil_pct, good_pct, ...dbPayload } = payload;
+  const { short_copy, evil_pct, good_pct, preview_key, preview_mode, record_id, ...dbPayload } = payload;
   try{
     const res = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`, {
       method:'POST',
@@ -793,7 +973,8 @@ async function saveResult(payload){
       const errText = await res.text();
       throw new Error(`save failed: ${res.status} | ${errText}`);
     }
-    return {mode:'supabase'};
+    const rows = await res.json().catch(()=>[]);
+    return {mode:'supabase', recordId: rows?.[0]?.id || null};
   }catch(err){
     console.error(err);
     return {mode:'local-fallback'};
@@ -935,11 +1116,15 @@ async function showResult(){
       danger_pct: evilPct,
       chaos_pct: goodPct,
       warm_pct: alertPct,
+      evil_pct: evilPct,
+      good_pct: goodPct,
       short_copy: result.short || '辦公室宇宙已留下這次傳說級紀錄。',
+      preview_key: null,
       created_at: new Date().toISOString()
     };
-    lastResultPayload = payload;
     const saveInfo = await saveResult(payload);
+    if(saveInfo?.recordId) payload.record_id = saveInfo.recordId;
+    renderResultFromPayload(payload);
     const leaderboard = await fetchLeaderboard();
     renderLeaderboard(leaderboard.items, leaderboard.mode || saveInfo.mode);
 
@@ -956,7 +1141,7 @@ async function showResult(){
   }
 }
 
-function restart(){answers=new Array(questions.length).fill(4);currentQ=0;isSubmittingResult=false;showScreen('screen-intro');const input=document.getElementById('player-name'); if(input){input.focus(); input.style.borderColor='var(--navy)';} const nextBtn=document.getElementById('btn-next'); if(nextBtn){nextBtn.disabled=false; nextBtn.classList.remove('loading'); nextBtn.textContent='下一題 →';}}
+function restart(){answers=new Array(questions.length).fill(4);currentQ=0;isSubmittingResult=false;lastResultPayload=null;clearQueryString();showScreen('screen-intro');const input=document.getElementById('player-name'); if(input){input.focus(); input.style.borderColor='var(--navy)';} const nextBtn=document.getElementById('btn-next'); if(nextBtn){nextBtn.disabled=false; nextBtn.classList.remove('loading'); nextBtn.textContent='下一題 →';}}
 
 function launchConfetti(){
   const cols=['#FF6B6B','#FFB347','#6BDFB8','#C3B1E1','#FFE066','#FF8FAB'];
@@ -971,6 +1156,7 @@ function launchConfetti(){
   }
 }
 document.getElementById('player-name').addEventListener('keydown',e=>{ if(e.key==='Enter') startQuiz(); });
+initFromURL();
 </script>
 </body>
 </html>
